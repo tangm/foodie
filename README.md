@@ -21,7 +21,13 @@ POST /app/click
 ## get questions from server
 GET /app/questions/
 ```
-[{"_id":"26fa5caa-c640-42e8-b146-4fab7eb68454","header":"Sexy Question","text":"I am a very sexy question","id":1464032572638}]
+[
+  {"_id":"26fa5caa-c640-42e8-b146-4fab7eb68454",
+    "header":"Sexy Question",
+    "text":"I am a very sexy question",
+    "id":1464032572638
+  }
+]
 ```
 returns an array of questions.
 ignore id, use _id for now.
