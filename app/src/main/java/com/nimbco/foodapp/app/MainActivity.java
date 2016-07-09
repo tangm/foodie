@@ -16,11 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.nimbco.foodapp.app.tasks.HTTPRequestTask;
 
 public class MainActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, DownloadAsStringTask.TaskCallbackHandler {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, HTTPRequestTask.TaskCallbackHandler {
 
     private static final String DEBUG_TAG = MainActivity.class.getName();
+    public static final String APP_URL = "http://poll.doganyazar.com:8001/app/questions";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -110,7 +112,7 @@ public class MainActivity extends Activity
                     this.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()) {
-                new DownloadAsStringTask(this).execute("https://foodie-23032.firebaseio.com/.json");
+                new HTTPRequestTask(this, APP_URL).execute();
             } else {
                 getResponse().setText("No network connection available.");
             };
@@ -125,8 +127,8 @@ public class MainActivity extends Activity
     public void callback(final Pair<String, Boolean> result) {
         final ViewGroup layout = getFragmentLayout();
         final TextView response = getResponse();
-        if (layout != null && response != null) {
-            ProcessDownloadResult.processRetrievalResult(this, result, layout, response);
+        if (layout != null) {
+            ProcessDownloadResult.processRetrievalResult(this, result, layout);
         }
 
     }
